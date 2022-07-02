@@ -1,62 +1,68 @@
-import DrawRound from 'components/DrawRound';
+// import DrawRound from 'components/DrawRound';
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
+// import Head from 'next/head';
+// import Image from 'next/image';
 import { useEffect } from 'react';
 
-function log(msg) {
-  var p = document.getElementById('log');
+function log(msg: any) {
+  const p = document.getElementById('log');
+  if (!p) {
+    return;
+  }
+
   p.innerHTML = msg + '\n' + p.innerHTML;
 }
 
-function ongoingTouchIndexById(idToFind) {
-  for (var i = 0; i < ongoingTouches.length; i++) {
-    var id = ongoingTouches[i].identifier;
+function drawRound(ctx: any, touch: any) {
+  ctx?.clearRect(0, 0, 600, 600);
+  // ctx.fillRect(touch.pageX - 20, touch.pageY - 20, 40,40); // and a square at the end
 
-    if (id == idToFind) {
-      return i;
-    }
-  }
-  return -1; // not found
+  ctx.arc(touch.pageX, touch.pageY, 40, 0, 2 * Math.PI, false); // a circle at the start
+  ctx.fill();
 }
 
-function copyTouch(touch) {
+function copyTouch(touch: any) {
+  const color = colorForTouch(touch);
   return {
     identifier: touch.identifier,
     pageX: touch.pageX,
     pageY: touch.pageY,
+    color,
   };
 }
 
-function colorForTouch(touch) {
-  var r = touch.identifier % 16;
-  var g = Math.floor(touch.identifier / 3) % 16;
-  var b = Math.floor(touch.identifier / 7) % 16;
-  r = r.toString(16); // make it a hex digit
-  g = g.toString(16); // make it a hex digit
-  b = b.toString(16); // make it a hex digit
-  var color = '#' + r + g + b;
+function colorForTouch(touch: any) {
+  const r = (touch.identifier % 16).toString(16); // make it a hex digit
+  const g = (Math.floor(touch.identifier / 3) % 16).toString(16); // make it a hex digit
+  const b = (Math.floor(touch.identifier / 7) % 16).toString(16); // make it a hex digit
+  const color = '#' + r + g + b;
   log('color for touch with identifier ' + touch.identifier + ' = ' + color);
   return color;
 }
 
-var ongoingTouches = [];
+var ongoingTouches: any = {};
 
-function handleStart(evt) {
+function handleStart(evt: any) {
   evt.preventDefault();
   log('touchstart.');
   var el = document.getElementsByTagName('canvas')[0];
   var ctx = el.getContext('2d');
   var touches = evt.changedTouches;
 
+  if (!ctx) {
+    return;
+  }
+
   for (var i = 0; i < touches.length; i++) {
     log('touchstart:' + i + '...');
-    ongoingTouches.push(copyTouch(touches[i]));
-    var color = colorForTouch(touches[i]);
+    const touch = copyTouch(touches[i]);
+    ongoingTouches[touch.identifier] = touch;
+
     ctx.beginPath();
-    ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false); // a circle at the start
-    ctx.fillStyle = color;
-    ctx.fill();
+    // ctx.arc(touch.pageX, touch.pageY, 4, 0, 2 * Math.PI, false); // a circle at the start
+    // ctx.fillStyle = touch.color;
+    // ctx.fill();
+    drawRound(ctx, touch);
     log('touchstart:' + i + '.');
   }
 }
@@ -70,34 +76,36 @@ function startup() {
   log('initialized.');
 }
 
-function handleMove(evt) {
+function handleMove(evt: any) {
   evt.preventDefault();
   var el = document.getElementsByTagName('canvas')[0];
   var ctx = el.getContext('2d');
   var touches = evt.changedTouches;
 
+  if (!ctx) {
+    return;
+  }
+
   for (var i = 0; i < touches.length; i++) {
-    var color = colorForTouch(touches[i]);
-    var idx = ongoingTouchIndexById(touches[i].identifier);
+    // var color = colorForTouch(touches[i]);
+    // var idx = ongoingTouchIndexById(touches[i].identifier);
 
-    if (idx >= 0) {
-      log('continuing touch ' + idx);
+    const touch = ongoingTouches[touches[i].identifier];
+    const newTouch = copyTouch(touches[i]);
+
+    if (touch) {
+      log('continuing touch ' + touch.identifier);
       ctx.beginPath();
-      log(
-        'ctx.moveTo(' +
-          ongoingTouches[idx].pageX +
-          ', ' +
-          ongoingTouches[idx].pageY +
-          ');',
-      );
-      ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-      log('ctx.lineTo(' + touches[i].pageX + ', ' + touches[i].pageY + ');');
-      ctx.lineTo(touches[i].pageX, touches[i].pageY);
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = color;
-      ctx.stroke();
+      log('ctx.moveTo(' + newTouch.pageX + ', ' + newTouch.pageY + ');');
+      // ctx.moveTo(touch.pageX, touch.pageY);
+      // log('ctx.lineTo(' + touch.pageX + ', ' + touch.pageY + ');');
+      // ctx.lineTo(newTouch.pageX, newTouch.pageY);
+      // ctx.lineWidth = 40;
+      // ctx.strokeStyle = newTouch.color;
+      // ctx.stroke();
 
-      ongoingTouches.splice(idx, 1, copyTouch(touches[i])); // swap in the new touch record
+      drawRound(ctx, newTouch);
+      ongoingTouches[newTouch.identifier] = newTouch;
       log('.');
     } else {
       log("can't figure out which touch to continue");
@@ -105,39 +113,45 @@ function handleMove(evt) {
   }
 }
 
-function handleEnd(evt) {
+function handleEnd(evt: any) {
   evt.preventDefault();
   log('touchend');
   var el = document.getElementsByTagName('canvas')[0];
   var ctx = el.getContext('2d');
   var touches = evt.changedTouches;
 
-  for (var i = 0; i < touches.length; i++) {
-    var color = colorForTouch(touches[i]);
-    var idx = ongoingTouchIndexById(touches[i].identifier);
+  if (!ctx) {
+    return;
+  }
 
-    if (idx >= 0) {
-      ctx.lineWidth = 4;
-      ctx.fillStyle = color;
+  for (var i = 0; i < touches.length; i++) {
+    // var color = colorForTouch(touches[i]);
+    // var idx = ongoingTouchIndexById(touches[i].identifier);
+    const touch = ongoingTouches[touches[i].identifier];
+    const newTouch = copyTouch(touches[i]);
+
+    if (touch) {
+      ctx.lineWidth = 40;
+      ctx.fillStyle = touch.color;
       ctx.beginPath();
-      ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-      ctx.lineTo(touches[i].pageX, touches[i].pageY);
-      ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8); // and a square at the end
-      ongoingTouches.splice(idx, 1); // remove it; we're done
+      // ctx.moveTo(touch.pageX, touch.pageY);
+      // ctx.lineTo(newTouch.pageX, newTouch.pageY);
+
+      drawRound(ctx, newTouch);
+      ongoingTouches[touch.identifier] = null;
     } else {
       log("can't figure out which touch to end");
     }
   }
 }
 
-function handleCancel(evt) {
+function handleCancel(evt: any) {
   evt.preventDefault();
   log('touchcancel.');
   var touches = evt.changedTouches;
 
   for (var i = 0; i < touches.length; i++) {
-    var idx = ongoingTouchIndexById(touches[i].identifier);
-    ongoingTouches.splice(idx, 1); // remove it; we're done
+    ongoingTouches[touches[i].identifier] = null;
   }
 }
 
