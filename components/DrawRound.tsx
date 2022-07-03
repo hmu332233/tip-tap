@@ -8,8 +8,8 @@ type Props = {
 function DrawRound({ x, y }: Props) {
   return (
     <div
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: x, top: y }}
+      className="will-change-transform"
+      style={{ transform: `translate(${x - 40}px, ${y - 40}px)` }}
     >
       <div className="rounded-full w-20 h-20 border-8 border-dashed animate-spin" />
     </div>
