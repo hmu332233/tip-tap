@@ -1,8 +1,9 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { IOngoingTouches, ITouch } from 'types';
+import { IOngoingTouchMap, ITouch } from 'types';
 
 import _sample from 'lodash/sample';
+import _pickBy from 'lodash/pickBy';
 import DrawRound from 'components/DrawRound';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
@@ -38,33 +39,35 @@ function colorForTouch(touch: ITouch) {
 }
 
 const useTouches = () => {
-  const [ongoingTouches, setOngoingTouches] = useState<IOngoingTouches>({});
+  const [ongoingTouchMap, setOngoingTouchMap] = useState<IOngoingTouchMap>({});
+  // const [nomalizedTouches, setNomalizedTouches] = useState<INomalizedTouches>({ ids: [], entities: {} });
 
   useEffect(() => {
-    function handleStart(event: TouchEvent) {
-      if (event.cancelable) event.preventDefault();
-      log('touchstart.');
-      // event.changedTouches.length;
+    // function handleStart(event: TouchEvent) {
+    //   if (event.cancelable) event.preventDefault();
+    //   log('touchstart.');
+    //   // event.changedTouches.length;
 
-      const touchesObj: { [key: string]: any } = {};
-      for (let i = 0; i < event.changedTouches.length; i++) {
-        const touch = copyTouch(event.changedTouches[i]);
-        touchesObj[touch.identifier] = touch;
-      }
+    //   const touchesObj: { [key: string]: any } = {};
+    //   for (let i = 0; i < event.changedTouches.length; i++) {
+    //     const touch = copyTouch(event.changedTouches[i]);
+    //     touchesObj[touch.identifier] = touch;
+    //   }
 
-      setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
-    }
+    //   setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
+    // }
 
     function handleMove(event: TouchEvent) {
       if (event.cancelable) event.preventDefault();
 
+      log('touchmove');
       const touchesObj: { [key: string]: any } = {};
       for (let i = 0; i < event.changedTouches.length; i++) {
         const touch = copyTouch(event.changedTouches[i]);
         touchesObj[touch.identifier] = touch;
       }
 
-      setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
+      setOngoingTouchMap((arr) => ({ ...arr, ...touchesObj }));
     }
 
     function handleEnd(event: TouchEvent) {
@@ -77,40 +80,52 @@ const useTouches = () => {
         touchesObj[touch.identifier] = undefined;
       }
 
-      setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
+      setOngoingTouchMap((arr) =>
+        _pickBy({ ...arr, ...touchesObj }, (v) => v !== undefined),
+      );
     }
 
-    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('touchstart', handleMove);
+    document.addEventListener('touchmove', handleMove);
     document.addEventListener('touchend', handleEnd);
     document.addEventListener('touchcancel', handleEnd);
-    document.addEventListener('touchmove', handleMove);
 
     return () => {
-      document.removeEventListener('touchstart', handleStart);
+      document.removeEventListener('touchstart', handleMove);
+      document.removeEventListener('touchmove', handleMove);
       document.removeEventListener('touchend', handleEnd);
       document.removeEventListener('touchcancel', handleEnd);
-      document.removeEventListener('touchmove', handleMove);
     };
   }, []);
-  return ongoingTouches;
+
+  // useEffect(() => {
+  //   const ids = Object.keys(ongoingTouches);
+  //   setNomalizedTouches({ ids, entities: { ...ongoingTouches } });
+  // }, [ongoingTouches]);
+
+  return ongoingTouchMap;
 };
 
 const Home: NextPage = () => {
   const [selecting, setSelecting] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
-  const ongoingTouches = useTouches();
+  const ongoingTouchMap = useTouches();
+  const ongoingTouches = Object.values(ongoingTouchMap);
   useEffect(() => {
     log(ongoingTouches);
-    const touches = Object.values(ongoingTouches).filter(Boolean);
-    log(touches);
 
-    if (touches.length === 0) {
+    if (ongoingTouches.length === 0) {
       setSelecting(false);
       return;
     }
 
     setSelecting(true);
-  }, [ongoingTouches]);
+
+    return () => {
+      // 터치한 수가 달라지면 select를 false로 바꿔서 setTimeout이 초기화되도록 한다.
+      setSelecting(false);
+    };
+  }, [ongoingTouches.length]);
 
   useEffect(() => {
     if (!selecting) {
@@ -119,9 +134,8 @@ const Home: NextPage = () => {
 
     log('start selecting!');
 
-    const touches = Object.values(ongoingTouches).filter(Boolean);
     const id = setTimeout(() => {
-      const touch = _sample<ITouch>(touches)!;
+      const touch = _sample<ITouch>(ongoingTouches)!;
       setSelected(touch.identifier);
       log('selected', touch);
     }, 3000);
@@ -134,8 +148,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex">
-      {Object.values(ongoingTouches)
-        .filter(Boolean)
+      {ongoingTouches
         .filter((touch) =>
           selected !== null ? touch.identifier === selected : true,
         )

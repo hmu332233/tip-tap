@@ -5,6 +5,6 @@ export interface ITouch {
   color: sring;
 }
 
-export interface IOngoingTouches {
+export interface IOngoingTouchMap {
   [key: string]: ITouch;
 }
