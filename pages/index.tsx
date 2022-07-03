@@ -90,7 +90,7 @@ const Home: NextPage = () => {
   const ongoingTouches = useTouches();
   log(ongoingTouches);
   return (
-    <div className="relative w-screen h-screen">
+    <div className="flex">
       {Object.values(ongoingTouches)
         .filter(Boolean)
         .map((touch) => (
