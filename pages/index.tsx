@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 // import Head from 'next/head';
 // import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { IOngoingTouches } from 'types';
 
 const log = console.log;
 
@@ -27,7 +28,7 @@ function colorForTouch(touch: any) {
 }
 
 const useTouches = () => {
-  const [ongoingTouches, setOngoingTouches] = useState({});
+  const [ongoingTouches, setOngoingTouches] = useState<IOngoingTouches>({});
 
   useEffect(() => {
     function handleStart(event: TouchEvent) {
