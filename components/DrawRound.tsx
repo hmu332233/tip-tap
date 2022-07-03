@@ -1,11 +1,14 @@
 import React from 'react';
 
+import cn from 'classnames';
+
 type Props = {
   x: number;
   y: number;
+  color: string;
 };
 
-function DrawRound({ x, y }: Props) {
+function DrawRound({ x, y, color }: Props) {
   return (
     // <div
     //   className="will-change-transform"
@@ -15,7 +18,12 @@ function DrawRound({ x, y }: Props) {
       className="absolute -translate-x-1/2 -translate-y-1/2"
       style={{ left: x, top: y }}
     >
-      <div className="rounded-full w-32 h-32 border-8 border-dashed animate-spin" />
+      <div
+        className={cn(
+          'rounded-full w-32 h-32 border-8 border-dashed animate-spin',
+          color && `border-${color}`,
+        )}
+      />
     </div>
   );
 }

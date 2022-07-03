@@ -4,19 +4,9 @@ import type { NextPage } from 'next';
 // import Head from 'next/head';
 // import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { IOngoingTouches } from 'types';
+import { IOngoingTouches, ITouch } from 'types';
 
-const log =
-  process.env.NODE_ENV === 'development'
-    ? (msg: any) => {
-        const p = document.getElementById('log');
-        if (!p) {
-          return;
-        }
-
-        p.innerHTML = msg + '\n' + p.innerHTML;
-      }
-    : () => {};
+const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
 function copyTouch(touch: any) {
   const color = colorForTouch(touch);
@@ -28,13 +18,21 @@ function copyTouch(touch: any) {
   };
 }
 
-function colorForTouch(touch: any) {
-  const r = (touch.identifier % 16).toString(16); // make it a hex digit
-  const g = (Math.floor(touch.identifier / 3) % 16).toString(16); // make it a hex digit
-  const b = (Math.floor(touch.identifier / 7) % 16).toString(16); // make it a hex digit
-  const color = '#' + r + g + b;
-  // log('color for touch with identifier ' + touch.identifier + ' = ' + color);
-  return color;
+// const colo
+
+function colorForTouch(touch: ITouch) {
+  const colorMap = [
+    'primary',
+    'secondary',
+    'accent',
+    'neutral',
+    'info',
+    'success',
+    'warning',
+    'error',
+  ];
+  const index = parseInt(touch.identifier) % colorMap.length;
+  return colorMap[index];
 }
 
 const useTouches = () => {
@@ -101,15 +99,17 @@ const Home: NextPage = () => {
     log(JSON.stringify(ongoingTouches));
   }, [ongoingTouches]);
   return (
-    <div>
-      <div className="flex">
-        {Object.values(ongoingTouches)
-          .filter(Boolean)
-          .map((touch) => (
-            <DrawRound key={touch.identifier} x={touch.pageX} y={touch.pageY} />
-          ))}
-      </div>
-      Log: <pre id="log" style={{ border: '1px solid #ccc' }}></pre>
+    <div className="flex">
+      {Object.values(ongoingTouches)
+        .filter(Boolean)
+        .map((touch) => (
+          <DrawRound
+            key={touch.identifier}
+            x={touch.pageX}
+            y={touch.pageY}
+            color={touch.color}
+          />
+        ))}
     </div>
   );
 };
