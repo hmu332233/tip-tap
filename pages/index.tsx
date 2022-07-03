@@ -88,7 +88,7 @@ const useTouches = () => {
 
 const Home: NextPage = () => {
   const ongoingTouches = useTouches();
-  console.log(ongoingTouches);
+  log(ongoingTouches);
   return (
     <div className="relative w-screen h-screen">
       {Object.values(ongoingTouches)
