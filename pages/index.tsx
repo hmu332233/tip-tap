@@ -30,7 +30,7 @@ function colorForTouch(touch: ITouch) {
     'warning',
     'error',
   ];
-  const index = parseInt(touch.identifier) % colorMap.length;
+  const index = touch.identifier % colorMap.length;
   return colorMap[index];
 }
 
@@ -94,12 +94,14 @@ const useTouches = () => {
 
 const Home: NextPage = () => {
   const [selecting, setSelecting] = useState(false);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<number | null>(null);
   const ongoingTouches = useTouches();
   useEffect(() => {
-    log(JSON.stringify(ongoingTouches));
+    log(ongoingTouches);
     const touches = Object.values(ongoingTouches).filter(Boolean);
+    log(touches);
     if (touches.length === 0) {
+      setSelecting(false);
       return;
     }
 
@@ -111,13 +113,17 @@ const Home: NextPage = () => {
       return;
     }
 
+    log('start selecting!');
+
     const touches = Object.values(ongoingTouches).filter(Boolean);
     const id = setTimeout(() => {
       const index = getRandomNumber(0, touches.length - 1);
       setSelected(touches[index].identifier);
+      log('selected', touches[index].identifier);
     }, 3000);
 
     return () => {
+      setSelected(null);
       clearTimeout(id);
     };
   }, [selecting]);
@@ -125,7 +131,9 @@ const Home: NextPage = () => {
     <div className="flex">
       {Object.values(ongoingTouches)
         .filter(Boolean)
-        .filter((touch) => (selected ? touch.identifier === selected : true))
+        .filter((touch) =>
+          selected !== null ? touch.identifier === selected : true,
+        )
         .map((touch) => (
           <DrawRound
             key={touch.identifier}

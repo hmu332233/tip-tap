@@ -1,5 +1,5 @@
 export interface ITouch {
-  identifier: string;
+  identifier: number;
   pageX: number;
   pageY: number;
   color: sring;
