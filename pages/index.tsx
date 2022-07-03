@@ -6,7 +6,18 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { IOngoingTouches } from 'types';
 
-const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
+const log =
+  // process.env.NODE_ENV === 'development'
+  true
+    ? (msg: any) => {
+        const p = document.getElementById('log');
+        if (!p) {
+          return;
+        }
+
+        p.innerHTML = msg + '\n' + p.innerHTML;
+      }
+    : () => {};
 
 function copyTouch(touch: any) {
   const color = colorForTouch(touch);
@@ -23,7 +34,7 @@ function colorForTouch(touch: any) {
   const g = (Math.floor(touch.identifier / 3) % 16).toString(16); // make it a hex digit
   const b = (Math.floor(touch.identifier / 7) % 16).toString(16); // make it a hex digit
   const color = '#' + r + g + b;
-  log('color for touch with identifier ' + touch.identifier + ' = ' + color);
+  // log('color for touch with identifier ' + touch.identifier + ' = ' + color);
   return color;
 }
 
@@ -73,29 +84,33 @@ const useTouches = () => {
     document.addEventListener('touchstart', handleStart);
     document.addEventListener('touchend', handleEnd);
     document.addEventListener('touchcancel', handleEnd);
-    document.addEventListener('touchmove', handleMove);
+    // document.addEventListener('touchmove', handleMove);
 
     return () => {
       document.removeEventListener('touchstart', handleStart);
       document.removeEventListener('touchend', handleEnd);
       document.removeEventListener('touchcancel', handleEnd);
-      document.removeEventListener('touchmove', handleMove);
+      // document.removeEventListener('touchmove', handleMove);
     };
   }, []);
-
   return ongoingTouches;
 };
 
 const Home: NextPage = () => {
   const ongoingTouches = useTouches();
-  log(ongoingTouches);
+  useEffect(() => {
+    log(JSON.stringify(ongoingTouches));
+  }, [ongoingTouches]);
   return (
-    <div className="flex">
-      {Object.values(ongoingTouches)
-        .filter(Boolean)
-        .map((touch) => (
-          <DrawRound key={touch.identifier} x={touch.pageX} y={touch.pageY} />
-        ))}
+    <div>
+      <div className="flex">
+        {Object.values(ongoingTouches)
+          .filter(Boolean)
+          .map((touch) => (
+            <DrawRound key={touch.identifier} x={touch.pageX} y={touch.pageY} />
+          ))}
+      </div>
+      Log: <pre id="log" style={{ border: '1px solid #ccc' }}></pre>
     </div>
   );
 };

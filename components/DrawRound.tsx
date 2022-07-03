@@ -9,9 +9,9 @@ function DrawRound({ x, y }: Props) {
   return (
     <div
       className="will-change-transform"
-      style={{ transform: `translate(${x - 40}px, ${y - 40}px)` }}
+      style={{ transform: `translate(${x - 64}px, ${y - 64}px)` }}
     >
-      <div className="rounded-full w-20 h-20 border-8 border-dashed animate-spin" />
+      <div className="rounded-full w-32 h-32 border-8 border-dashed animate-spin" />
     </div>
   );
 }
