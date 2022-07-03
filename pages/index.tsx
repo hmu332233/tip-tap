@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react';
 import { IOngoingTouches } from 'types';
 
 const log =
-  // process.env.NODE_ENV === 'development'
-  true
+  process.env.NODE_ENV === 'development'
     ? (msg: any) => {
         const p = document.getElementById('log');
         if (!p) {
@@ -84,13 +83,13 @@ const useTouches = () => {
     document.addEventListener('touchstart', handleStart);
     document.addEventListener('touchend', handleEnd);
     document.addEventListener('touchcancel', handleEnd);
-    // document.addEventListener('touchmove', handleMove);
+    document.addEventListener('touchmove', handleMove);
 
     return () => {
       document.removeEventListener('touchstart', handleStart);
       document.removeEventListener('touchend', handleEnd);
       document.removeEventListener('touchcancel', handleEnd);
-      // document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchmove', handleMove);
     };
   }, []);
   return ongoingTouches;
