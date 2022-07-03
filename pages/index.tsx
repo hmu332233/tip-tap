@@ -5,7 +5,7 @@ import type { NextPage } from 'next';
 // import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { IOngoingTouches, ITouch } from 'types';
-import { getRandomNumber } from 'utils';
+import { sampleSize } from 'utils';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
@@ -117,9 +117,9 @@ const Home: NextPage = () => {
 
     const touches = Object.values(ongoingTouches).filter(Boolean);
     const id = setTimeout(() => {
-      const index = getRandomNumber(0, touches.length - 1);
-      setSelected(touches[index].identifier);
-      log('selected', touches[index].identifier);
+      const [touch] = sampleSize<ITouch>(touches);
+      setSelected(touch.identifier);
+      log('selected', touch);
     }, 3000);
 
     return () => {
