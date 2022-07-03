@@ -6,7 +6,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { IOngoingTouches } from 'types';
 
-const log = console.log;
+const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
 function copyTouch(touch: any) {
   const color = colorForTouch(touch);
@@ -32,7 +32,7 @@ const useTouches = () => {
 
   useEffect(() => {
     function handleStart(event: TouchEvent) {
-      event.preventDefault();
+      if (event.cancelable) event.preventDefault();
       log('touchstart.');
       // event.changedTouches.length;
 
@@ -46,7 +46,7 @@ const useTouches = () => {
     }
 
     function handleMove(event: TouchEvent) {
-      event.preventDefault();
+      if (event.cancelable) event.preventDefault();
 
       const touchesObj: { [key: string]: any } = {};
       for (let i = 0; i < event.changedTouches.length; i++) {
@@ -58,7 +58,7 @@ const useTouches = () => {
     }
 
     function handleEnd(event: TouchEvent) {
-      event.preventDefault();
+      if (event.cancelable) event.preventDefault();
       log('touchend');
 
       const touchesObj: { [key: string]: any } = {};
@@ -70,10 +70,10 @@ const useTouches = () => {
       setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
     }
 
-    document.addEventListener('touchstart', handleStart, false);
-    document.addEventListener('touchend', handleEnd, false);
-    document.addEventListener('touchcancel', handleEnd, false);
-    document.addEventListener('touchmove', handleMove, false);
+    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('touchend', handleEnd);
+    document.addEventListener('touchcancel', handleEnd);
+    document.addEventListener('touchmove', handleMove);
 
     return () => {
       document.removeEventListener('touchstart', handleStart);
