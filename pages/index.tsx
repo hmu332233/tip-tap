@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { IOngoingTouches, ITouch } from 'types';
 import { sampleSize } from 'utils';
 
+import _sample from 'lodash/sample';
+
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
 function copyTouch(touch: any) {
@@ -117,7 +119,7 @@ const Home: NextPage = () => {
 
     const touches = Object.values(ongoingTouches).filter(Boolean);
     const id = setTimeout(() => {
-      const [touch] = sampleSize<ITouch>(touches);
+      const touch = _sample<ITouch>(touches)!;
       setSelected(touch.identifier);
       log('selected', touch);
     }, 3000);
