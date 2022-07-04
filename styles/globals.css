@@ -9,3 +9,17 @@ body,
   height: 100vh;
   touch-action: none;
 }
+
+.progress-on {
+  animation: progress 3s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

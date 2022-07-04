@@ -5,6 +5,7 @@ import { IOngoingTouchMap, ITouch } from 'types';
 import _sample from 'lodash/sample';
 import _pickBy from 'lodash/pickBy';
 import DrawRound from 'components/DrawRound';
+import Progress from 'components/Progress';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
@@ -111,28 +112,13 @@ const Home: NextPage = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const ongoingTouchMap = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
-  // useEffect(() => {
-  //   // log(ongoingTouches);
-
-  //   if (ongoingTouches.length === 0) {
-  //     setSelecting(false);
-  //     return;
-  //   }
-
-  //   setSelecting(true);
-
-  //   return () => {
-  //     // 터치한 수가 달라지면 select를 false로 바꿔서 setTimeout이 초기화되도록 한다.
-  //     setSelecting(false);
-  //   };
-  // }, [ongoingTouches.length]);
 
   useEffect(() => {
     if (ongoingTouches.length === 0) {
       return;
     }
-    setSelecting(true);
     log('start selecting!');
+    setSelecting(true);
 
     const id = setTimeout(() => {
       const touch = _sample<ITouch>(ongoingTouches)!;
@@ -148,12 +134,9 @@ const Home: NextPage = () => {
     };
   }, [ongoingTouches.length]);
 
-  // 1. 터치수가 바뀔때마다 타이머 초기화
-  // 2. 터치수가 변함이 없다면 3초 뒤에 한명을 뽑아준다.
-
   return (
     <div className="flex">
-      {`${selecting}`}
+      <Progress on={selecting} />
       {ongoingTouches
         .filter((touch) =>
           selected !== null ? touch.identifier === selected : true,
