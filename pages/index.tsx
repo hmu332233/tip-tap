@@ -111,27 +111,27 @@ const Home: NextPage = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const ongoingTouchMap = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
-  useEffect(() => {
-    log(ongoingTouches);
+  // useEffect(() => {
+  //   // log(ongoingTouches);
 
+  //   if (ongoingTouches.length === 0) {
+  //     setSelecting(false);
+  //     return;
+  //   }
+
+  //   setSelecting(true);
+
+  //   return () => {
+  //     // 터치한 수가 달라지면 select를 false로 바꿔서 setTimeout이 초기화되도록 한다.
+  //     setSelecting(false);
+  //   };
+  // }, [ongoingTouches.length]);
+
+  useEffect(() => {
     if (ongoingTouches.length === 0) {
-      setSelecting(false);
       return;
     }
-
     setSelecting(true);
-
-    return () => {
-      // 터치한 수가 달라지면 select를 false로 바꿔서 setTimeout이 초기화되도록 한다.
-      setSelecting(false);
-    };
-  }, [ongoingTouches.length]);
-
-  useEffect(() => {
-    if (!selecting) {
-      return;
-    }
-
     log('start selecting!');
 
     const id = setTimeout(() => {
@@ -141,13 +141,19 @@ const Home: NextPage = () => {
     }, 3000);
 
     return () => {
+      setSelecting(false);
+      log('clear');
       setSelected(null);
       clearTimeout(id);
     };
-  }, [selecting]);
+  }, [ongoingTouches.length]);
+
+  // 1. 터치수가 바뀔때마다 타이머 초기화
+  // 2. 터치수가 변함이 없다면 3초 뒤에 한명을 뽑아준다.
 
   return (
     <div className="flex">
+      {`${selecting}`}
       {ongoingTouches
         .filter((touch) =>
           selected !== null ? touch.identifier === selected : true,
