@@ -118,9 +118,11 @@ const Home: NextPage = () => {
       return;
     }
     log('start selecting!');
-    setSelecting(true);
+    const selectingTimerId = setTimeout(() => {
+      setSelecting(true);
+    }, 500);
 
-    const id = setTimeout(() => {
+    const sampleTimerId = setTimeout(() => {
       const touch = _sample<ITouch>(ongoingTouches)!;
       setSelected(touch.identifier);
       log('selected', touch);
@@ -130,7 +132,8 @@ const Home: NextPage = () => {
       setSelecting(false);
       log('clear');
       setSelected(null);
-      clearTimeout(id);
+      clearTimeout(selectingTimerId);
+      clearTimeout(sampleTimerId);
     };
   }, [ongoingTouches.length]);
 

@@ -11,7 +11,7 @@ body,
 }
 
 .progress-on {
-  animation: progress 3s linear;
+  animation: progress 2.5s linear;
   animation-fill-mode: forwards;
 }
 
