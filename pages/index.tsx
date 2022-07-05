@@ -6,6 +6,7 @@ import _sample from 'lodash/sample';
 import _pickBy from 'lodash/pickBy';
 import DrawRound from 'components/DrawRound';
 import Progress from 'components/Progress';
+import Background from 'components/Background';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
@@ -139,6 +140,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex">
+      <Background />
       <Progress on={selecting} />
       {ongoingTouches
         .filter((touch) =>
