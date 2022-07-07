@@ -18,12 +18,13 @@ function DrawRound({ x, y, color }: Props) {
       className="absolute -translate-x-1/2 -translate-y-1/2"
       style={{ left: x, top: y }}
     >
-      <div
+      {/* <div
         className={cn(
           'rounded-full w-32 h-32 border-8 border-dashed animate-spin',
           color && `border-${color}`,
         )}
-      />
+      /> */}
+      <div className="cursor" />
     </div>
   );
 }
