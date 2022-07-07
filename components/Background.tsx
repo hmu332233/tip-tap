@@ -10,7 +10,7 @@ function Background({}: Props) {
         <div className="wave two"></div>
         <div className="wave three"></div>
       </div> */}
-      <div className="flex justify-center items-center animate-pulse uppercase absolute left-0 top-0 z-0 text-center text-3xl text-neutral-content font-bold w-full h-full tracking-[.4em]">
+      <div className="flex justify-center items-center animate-pulse uppercase absolute left-0 top-0 z-0 text-center md:text-3xl sm:text-2xl text-xl text-neutral-content font-bold w-full h-full tracking-[.4em]">
         Touch Screen
       </div>
     </div>
