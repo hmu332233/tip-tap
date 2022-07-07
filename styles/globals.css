@@ -78,7 +78,7 @@ body,
   left: 6px;
   right: 6px;
   bottom: 6px;
-  background-color: #000;
+  background-color: rgb(39, 41, 53);
   border-radius: 50%;
   z-index: 1000;
 }
