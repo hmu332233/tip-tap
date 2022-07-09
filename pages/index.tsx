@@ -7,6 +7,8 @@ import _pickBy from 'lodash/pickBy';
 import DrawRound from 'components/DrawRound';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
+import SettingModal from 'components/SettingModal';
+import useToggle from 'hooks/useToggle';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
@@ -41,10 +43,14 @@ function colorForTouch(touch: ITouch) {
 }
 
 const useTouches = () => {
+  const [active, setActive] = useState(false);
   const [ongoingTouchMap, setOngoingTouchMap] = useState<IOngoingTouchMap>({});
   // const [nomalizedTouches, setNomalizedTouches] = useState<INomalizedTouches>({ ids: [], entities: {} });
 
   useEffect(() => {
+    if (!active) {
+      return;
+    }
     // function handleStart(event: TouchEvent) {
     //   if (event.cancelable) event.preventDefault();
     //   log('touchstart.');
@@ -98,21 +104,27 @@ const useTouches = () => {
       document.removeEventListener('touchend', handleEnd);
       document.removeEventListener('touchcancel', handleEnd);
     };
-  }, []);
+  }, [active]);
 
   // useEffect(() => {
   //   const ids = Object.keys(ongoingTouches);
   //   setNomalizedTouches({ ids, entities: { ...ongoingTouches } });
   // }, [ongoingTouches]);
 
-  return ongoingTouchMap;
+  return { ongoingTouchMap, setActive };
 };
 
 const Home: NextPage = () => {
   const [selecting, setSelecting] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
-  const ongoingTouchMap = useTouches();
+  const { ongoingTouchMap, setActive } = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
+
+  const [isOpen, toggle] = useToggle(true);
+
+  useEffect(() => {
+    setActive(!isOpen);
+  }, [isOpen, setActive]);
 
   useEffect(() => {
     if (ongoingTouches.length === 0) {
@@ -154,6 +166,7 @@ const Home: NextPage = () => {
             color={touch.color}
           />
         ))}
+      <SettingModal isOpen={isOpen} toggle={toggle} />
     </div>
   );
 };

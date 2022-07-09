@@ -8,3 +8,14 @@ export interface ITouch {
 export interface IOngoingTouchMap {
   [key: string]: ITouch;
 }
+
+export type MainContextValue = [
+  {
+    mode: string;
+    count: number;
+  },
+  {
+    changeMode(mode: string): void;
+    changeCount(changeFunc: (v: number) => number): void;
+  },
+];
