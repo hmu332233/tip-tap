@@ -9,7 +9,7 @@ export interface IOngoingTouchMap {
   [key: string]: ITouch;
 }
 
-export type MainContextValue = [
+export type SettingContextValue = [
   {
     mode: string;
     count: number;

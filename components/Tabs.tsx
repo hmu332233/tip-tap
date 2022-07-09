@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { useMainContext } from 'contexts/mainContext';
+import { useSettingContext } from 'contexts/SettingContext';
 
 type TabItem = {
   id: string;
@@ -25,10 +25,10 @@ const items: TabItem[] = [
 type Props = {};
 
 function Tabs({}: Props) {
-  const [{ mode }, { changeMode }] = useMainContext();
+  const [{ mode }, { changeMode }] = useSettingContext();
 
   return (
-    <div className="tabs tabs-boxed justify-center">
+    <div className="tabs tabs-boxed justify-center bg-base-100">
       {items.map((item) => (
         <div
           key={item.id}

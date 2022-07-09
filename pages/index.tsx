@@ -2,13 +2,14 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { IOngoingTouchMap, ITouch } from 'types';
 
-import _sample from 'lodash/sample';
+import _sampleSize from 'lodash/sampleSize';
 import _pickBy from 'lodash/pickBy';
 import DrawRound from 'components/DrawRound';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
 import SettingModal from 'components/SettingModal';
 import useToggle from 'hooks/useToggle';
+import { useSettingContext } from 'contexts/SettingContext';
 
 const log = process.env.NODE_ENV === 'development' ? console.log : () => {};
 
@@ -45,25 +46,11 @@ function colorForTouch(touch: ITouch) {
 const useTouches = () => {
   const [active, setActive] = useState(false);
   const [ongoingTouchMap, setOngoingTouchMap] = useState<IOngoingTouchMap>({});
-  // const [nomalizedTouches, setNomalizedTouches] = useState<INomalizedTouches>({ ids: [], entities: {} });
 
   useEffect(() => {
     if (!active) {
       return;
     }
-    // function handleStart(event: TouchEvent) {
-    //   if (event.cancelable) event.preventDefault();
-    //   log('touchstart.');
-    //   // event.changedTouches.length;
-
-    //   const touchesObj: { [key: string]: any } = {};
-    //   for (let i = 0; i < event.changedTouches.length; i++) {
-    //     const touch = copyTouch(event.changedTouches[i]);
-    //     touchesObj[touch.identifier] = touch;
-    //   }
-
-    //   setOngoingTouches((arr) => ({ ...arr, ...touchesObj }));
-    // }
 
     function handleMove(event: TouchEvent) {
       if (event.cancelable) event.preventDefault();
@@ -106,21 +93,17 @@ const useTouches = () => {
     };
   }, [active]);
 
-  // useEffect(() => {
-  //   const ids = Object.keys(ongoingTouches);
-  //   setNomalizedTouches({ ids, entities: { ...ongoingTouches } });
-  // }, [ongoingTouches]);
-
   return { ongoingTouchMap, setActive };
 };
 
 const Home: NextPage = () => {
+  const [{ mode, count }] = useSettingContext();
   const [selecting, setSelecting] = useState(false);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number[]>([]);
   const { ongoingTouchMap, setActive } = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
 
-  const [isOpen, toggle] = useToggle(true);
+  const [isOpen, toggle] = useToggle(false);
 
   useEffect(() => {
     setActive(!isOpen);
@@ -136,15 +119,15 @@ const Home: NextPage = () => {
     }, 500);
 
     const sampleTimerId = setTimeout(() => {
-      const touch = _sample<ITouch>(ongoingTouches)!;
-      setSelected(touch.identifier);
-      log('selected', touch);
+      const selectedTouches = _sampleSize<ITouch>(ongoingTouches, count)!;
+      setSelected(selectedTouches.map((touch) => touch.identifier));
+      log('selected', selectedTouches);
     }, 3000);
 
     return () => {
       setSelecting(false);
       log('clear');
-      setSelected(null);
+      setSelected([]);
       clearTimeout(selectingTimerId);
       clearTimeout(sampleTimerId);
     };
@@ -156,7 +139,7 @@ const Home: NextPage = () => {
       <Progress on={selecting} />
       {ongoingTouches
         .filter((touch) =>
-          selected !== null ? touch.identifier === selected : true,
+          selected.length === 0 ? true : selected.includes(touch.identifier),
         )
         .map((touch) => (
           <DrawRound

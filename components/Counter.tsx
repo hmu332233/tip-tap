@@ -1,17 +1,23 @@
-import { useMainContext } from 'contexts/mainContext';
+import { useSettingContext } from 'contexts/SettingContext';
 import React from 'react';
 
 type Props = {};
 
 function Counter({}: Props) {
-  const [{ count }, { changeCount }] = useMainContext();
+  const [{ count }, { changeCount }] = useSettingContext();
   return (
-    <div className="input-group">
-      <button className="btn" onClick={() => changeCount((v) => v - 1)}>
+    <div className="input-group justify-center">
+      <button
+        className="btn btn-primary"
+        onClick={() => changeCount((v) => v - 1)}
+      >
         -
       </button>
       <input type="number" className="input input-bordered" value={count} />
-      <button className="btn" onClick={() => changeCount((v) => v + 1)}>
+      <button
+        className="btn btn-primary"
+        onClick={() => changeCount((v) => v + 1)}
+      >
         +
       </button>
     </div>

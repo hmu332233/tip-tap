@@ -20,8 +20,10 @@ function SettingModal({ isOpen, toggle }: Props) {
       <label htmlFor="setting-modal" className="modal cursor-pointer">
         <label className="modal-box relative" htmlFor="">
           <h3 className="text-lg font-bold">Settings</h3>
-          <Tabs />
-          <Counter />
+          <div className="flex flex-col justify-center items-center">
+            <Tabs />
+            <Counter />
+          </div>
         </label>
       </label>
     </>

@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { MainContextValue } from 'types';
+import { SettingContextValue } from 'types';
 
-export const MainContext = createContext<MainContextValue>([
+export const SettingContext = createContext<SettingContextValue>([
   { mode: 'pick', count: 1 },
   { changeMode: () => {}, changeCount: () => {} },
 ]);
 
-export function useMainContext() {
-  const value = useContext(MainContext);
+export function useSettingContext() {
+  const value = useContext(SettingContext);
   return value;
 }
 
-export function MainProvider({ children }: { children: JSX.Element }) {
+export function SettingProvier({ children }: { children: JSX.Element }) {
   const [mode, setMode] = useState('pick');
   const [count, setCount] = useState(1);
 
@@ -27,10 +27,12 @@ export function MainProvider({ children }: { children: JSX.Element }) {
     [],
   );
 
-  const value = useMemo<MainContextValue>(
+  const value = useMemo<SettingContextValue>(
     () => [{ mode, count }, actions],
     [mode, count, actions],
   );
 
-  return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
+  return (
+    <SettingContext.Provider value={value}>{children}</SettingContext.Provider>
+  );
 }
