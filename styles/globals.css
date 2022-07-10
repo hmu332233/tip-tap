@@ -67,7 +67,7 @@ body,
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+  background: linear-gradient(45deg, transparent, transparent 40%, #fff133);
   animation: drift 1s linear infinite;
 }
 
@@ -90,7 +90,7 @@ body,
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+  background: linear-gradient(45deg, transparent, transparent 40%, #fff133);
   border-radius: 50%;
   z-index: 1000;
   filter: blur(30px);
