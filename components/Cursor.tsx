@@ -8,7 +8,7 @@ type Props = {
   color: string;
 };
 
-function DrawRound({ x, y, color }: Props) {
+function Cursor({ x, y, color }: Props) {
   return (
     // <div
     //   className="will-change-transform"
@@ -29,4 +29,4 @@ function DrawRound({ x, y, color }: Props) {
   );
 }
 
-export default DrawRound;
+export default Cursor;
