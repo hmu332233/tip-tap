@@ -6,25 +6,30 @@ type Props = {};
 function Counter({}: Props) {
   const [{ count }, { changeCount }] = useSettingContext();
   return (
-    <div className="input-group justify-center">
-      <button
-        className="btn btn-primary"
-        onClick={() => changeCount((v) => v - 1)}
-      >
-        -
-      </button>
-      <input
-        type="number"
-        className="input input-bordered"
-        value={count}
-        readOnly
-      />
-      <button
-        className="btn btn-primary"
-        onClick={() => changeCount((v) => v + 1)}
-      >
-        +
-      </button>
+    <div className="form-control">
+      <label className="label">
+        <span className="label-text">Count</span>
+      </label>
+      <div className="input-group">
+        <button
+          className="btn btn-primary"
+          onClick={() => changeCount((v) => v - 1)}
+        >
+          -
+        </button>
+        <input
+          type="number"
+          className="input input-bordered"
+          value={count}
+          readOnly
+        />
+        <button
+          className="btn btn-primary"
+          onClick={() => changeCount((v) => v + 1)}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
