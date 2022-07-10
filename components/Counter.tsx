@@ -13,7 +13,12 @@ function Counter({}: Props) {
       >
         -
       </button>
-      <input type="number" className="input input-bordered" value={count} />
+      <input
+        type="number"
+        className="input input-bordered"
+        value={count}
+        readOnly
+      />
       <button
         className="btn btn-primary"
         onClick={() => changeCount((v) => v + 1)}
