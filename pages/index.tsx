@@ -18,7 +18,7 @@ import SettingModal from 'components/SettingModal';
 const Home: NextPage = () => {
   const [{ mode, count }] = useSettingContext();
   const [selecting, setSelecting] = useState(false);
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selectedTouches, setSelectedTouches] = useState<ITouch[]>([]);
   const { ref, ongoingTouchMap, setActive } = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
 
@@ -38,38 +38,37 @@ const Home: NextPage = () => {
     }, 500);
 
     const sampleTimerId = setTimeout(() => {
-      const selectedTouches = _sampleSize<ITouch>(
+      const randomOrderTouches = _sampleSize<ITouch>(
         ongoingTouches,
         ongoingTouches.length,
       )!;
-      setSelected(selectedTouches.map((touch) => touch.identifier));
+      setSelectedTouches(randomOrderTouches.slice(0, count));
     }, 3000);
 
     return () => {
       setSelecting(false);
-      setSelected([]);
+      setSelectedTouches([]);
       clearTimeout(selectingTimerId);
       clearTimeout(sampleTimerId);
     };
-  }, [ongoingTouches.length]);
+  }, [ongoingTouches.length, count]);
+
+  const targets =
+    selectedTouches.length === 0 ? ongoingTouches : selectedTouches;
 
   return (
     <div className="flex">
       <Background />
       <Progress on={selecting} />
       <div className="relative w-screen h-screen overflow-hidden" ref={ref}>
-        {ongoingTouches
-          .filter((touch, index) =>
-            selected.length === 0 ? true : index < count,
-          )
-          .map((touch) => (
-            <Cursor
-              key={touch.identifier}
-              x={touch.pageX}
-              y={touch.pageY}
-              color={touch.color}
-            />
-          ))}
+        {targets.map((touch) => (
+          <Cursor
+            key={touch.identifier}
+            x={touch.pageX}
+            y={touch.pageY}
+            color={touch.color}
+          />
+        ))}
       </div>
       <SettingButton onClick={toggleSettingModalOpen} />
       <SettingModal
