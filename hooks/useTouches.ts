@@ -18,7 +18,8 @@ const useTouches = () => {
   const [ongoingTouchMap, setOngoingTouchMap] = useState<IOngoingTouchMap>({});
 
   useEffect(() => {
-    if (!active || !ref.current) {
+    const element = ref.current;
+    if (!active || !element) {
       return;
     }
 
@@ -46,18 +47,18 @@ const useTouches = () => {
       );
     }
 
-    ref.current.addEventListener('touchstart', handleMove);
-    ref.current.addEventListener('touchmove', handleMove);
-    ref.current.addEventListener('touchend', handleEnd);
-    ref.current.addEventListener('touchcancel', handleEnd);
+    element.addEventListener('touchstart', handleMove);
+    element.addEventListener('touchmove', handleMove);
+    element.addEventListener('touchend', handleEnd);
+    element.addEventListener('touchcancel', handleEnd);
 
     return () => {
-      ref.current?.removeEventListener('touchstart', handleMove);
-      ref.current?.removeEventListener('touchmove', handleMove);
-      ref.current?.removeEventListener('touchend', handleEnd);
-      ref.current?.removeEventListener('touchcancel', handleEnd);
+      element.removeEventListener('touchstart', handleMove);
+      element.removeEventListener('touchmove', handleMove);
+      element.removeEventListener('touchend', handleEnd);
+      element.removeEventListener('touchcancel', handleEnd);
     };
-  }, [active]);
+  }, [ref, active]);
 
   return { ref, ongoingTouchMap, setActive };
 };
