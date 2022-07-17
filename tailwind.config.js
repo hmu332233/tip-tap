@@ -6,7 +6,7 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /^border-/,
+      pattern: /^bg-/,
     },
   ],
   theme: {
