@@ -4,33 +4,12 @@ import { IOngoingTouchMap, ITouch } from 'types';
 import _pickBy from 'lodash/pickBy';
 
 function copyTouch(touch: any) {
-  const color = colorForTouch(touch);
   return {
     identifier: touch.identifier,
     pageX: touch.pageX,
     pageY: touch.pageY,
-    color,
+    color: 'random',
   };
-}
-
-function colorForTouch(touch: ITouch) {
-  const colorMap = [
-    'primary',
-    'secondary',
-    'secondary-content',
-    'accent',
-    'neutral-content',
-    'info',
-    'info-content',
-    'base-content',
-    'success',
-    'success-content',
-    'warning',
-    'error',
-    'error-content',
-  ];
-  const index = touch.identifier % colorMap.length;
-  return colorMap[index];
 }
 
 const useTouches = () => {

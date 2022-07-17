@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { ITouch } from 'types';
 
-import _sampleSize from 'lodash/sampleSize';
+import _ from 'lodash';
 
 import { useSettingContext } from 'contexts/SettingContext';
 
@@ -14,6 +14,43 @@ import Cursor from 'components/Cursor';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
 import SettingModal from 'components/SettingModal';
+
+const colors = [
+  'primary',
+  'secondary',
+  'secondary-content',
+  'accent',
+  'neutral-content',
+  'info',
+  'info-content',
+  'base-content',
+  'success',
+  'success-content',
+  'warning',
+  'error',
+  'error-content',
+];
+
+const selectTouches = (touches: ITouch[], mode: string, count: number) => {
+  const randomOrderTouches = _.shuffle<ITouch>(touches)!;
+
+  switch (mode) {
+    case 'group':
+      return _.chain(randomOrderTouches)
+        .map((touch, index) => ({
+          ...touch,
+          color: colors[index % count] || 'random',
+        }))
+        .value();
+    case 'pick': {
+      return randomOrderTouches.slice(0, count);
+    }
+    case 'order':
+    default: {
+      return randomOrderTouches;
+    }
+  }
+};
 
 const Home: NextPage = () => {
   const [{ mode, count }] = useSettingContext();
@@ -38,11 +75,7 @@ const Home: NextPage = () => {
     }, 500);
 
     const sampleTimerId = setTimeout(() => {
-      const randomOrderTouches = _sampleSize<ITouch>(
-        ongoingTouches,
-        ongoingTouches.length,
-      )!;
-      setSelectedTouches(randomOrderTouches.slice(0, count));
+      setSelectedTouches(selectTouches(ongoingTouches, mode, count));
     }, 3000);
 
     return () => {
