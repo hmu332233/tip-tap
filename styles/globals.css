@@ -67,6 +67,8 @@ body,
   width: 128px;
   height: 128px;
   border-radius: 50%;
+
+  transition: background-color 1s linear;
 }
 
 .cursor:before {
