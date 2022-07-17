@@ -8,7 +8,7 @@ type Props = {
   color: string;
 };
 
-function Cursor({ x, y, color }: Props) {
+function Cursor({ x, y, color = 'random' }: Props) {
   return (
     // <div
     //   className="will-change-transform"
@@ -24,7 +24,7 @@ function Cursor({ x, y, color }: Props) {
           color && `border-${color}`,
         )}
       /> */}
-      <div className="cursor" />
+      <div className={cn('cursor', `bg-${color}`)} />
     </div>
   );
 }
