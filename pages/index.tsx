@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { ITouch } from 'types';
 
@@ -110,6 +110,25 @@ const Home: NextPage = () => {
       />
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const UA = req.headers['user-agent']!;
+  const isMobile = Boolean(
+    UA.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
+
+  return {
+    props: {},
+    ...(!isMobile && {
+      redirect: {
+        permanent: false,
+        destination: '/not-available',
+      },
+    }),
+  };
 };
 
 export default Home;
