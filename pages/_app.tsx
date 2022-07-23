@@ -2,32 +2,16 @@ import 'styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SettingProvier } from 'contexts/SettingContext';
+import GA from 'components/GA';
+import SEO from 'components/SEO';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
-        />
-        <title>Tip Tap</title>
-        <meta
-          name="description"
-          content="Tip-Tap is a collection of simple games that can play with fingers. Use it in a variety of situations, including simple bets with friends, teaming, and board game ordering!"
-        />
-        <meta name="keywords" content="tip,tap,game,random,picker" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Tip Tap" />
-        <meta
-          property="og:description"
-          content="Tip-Tap is a collection of simple games that can play with fingers. Use it in a variety of situations, including simple bets with friends, teaming, and board game ordering!"
-        />
-        {/* <meta property="og:image" content=""/> */}
-        <meta property="og:url" content="https://tip-tap.minung.dev" />
-      </Head>
+      <SEO />
       <SettingProvier>
         <Component {...pageProps} />
+        <GA />
       </SettingProvier>
     </>
   );

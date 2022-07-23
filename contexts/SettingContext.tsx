@@ -11,7 +11,7 @@ export function useSettingContext() {
   return value;
 }
 
-export function SettingProvier({ children }: { children: JSX.Element }) {
+export function SettingProvier({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState('pick');
   const [count, setCount] = useState(1);
 
