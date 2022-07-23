@@ -36,10 +36,7 @@ function Tabs({}: Props) {
       <label className="label">
         <span className="label-text">Mode</span>
       </label>
-      <select
-        className="select select-primary w-full max-w-xs"
-        onChange={handleChange}
-      >
+      <select className="select select-primary w-full" onChange={handleChange}>
         {items.map((item) => (
           <option key={item.id} value={item.id}>
             {item.text}

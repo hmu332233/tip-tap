@@ -10,7 +10,7 @@ function Counter({}: Props) {
       <label className="label">
         <span className="label-text">Count</span>
       </label>
-      <div className="input-group w-full max-w-xs">
+      <div className="input-group w-full">
         <button
           className="btn btn-primary"
           onClick={() => changeCount((v) => v - 1)}

@@ -7,7 +7,7 @@ type Props = {
 function SettingButton({ onClick }: Props) {
   return (
     <button
-      className="btn btn-circle btn-outline fixed top-4 right-4"
+      className="btn btn-circle btn-ghost fixed top-4 right-4 text-primary"
       onClick={onClick}
     >
       <svg
