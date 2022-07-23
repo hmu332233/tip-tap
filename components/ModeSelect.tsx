@@ -22,13 +22,13 @@ const items: TabItem[] = [
   },
 ];
 
-type Props = {};
+type Props = {
+  onChange: (v: string) => void;
+};
 
-function Tabs({}: Props) {
-  const [, { changeMode }] = useSettingContext();
-
+function ModeSelect({ onChange }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    changeMode(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
@@ -47,4 +47,4 @@ function Tabs({}: Props) {
   );
 }
 
-export default Tabs;
+export default ModeSelect;

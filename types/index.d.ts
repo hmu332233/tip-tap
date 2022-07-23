@@ -16,6 +16,6 @@ export type SettingContextValue = [
   },
   {
     changeMode(mode: string): void;
-    changeCount(changeFunc: (v: number) => number): void;
+    changeCount(v: number): void;
   },
 ];

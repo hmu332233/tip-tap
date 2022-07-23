@@ -1,10 +1,16 @@
-import { useSettingContext } from 'contexts/SettingContext';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-type Props = {};
+type Props = {
+  onChange: (v: number) => void;
+};
 
-function Counter({}: Props) {
-  const [{ count }, { changeCount }] = useSettingContext();
+function Counter({ onChange }: Props) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    onChange(count);
+  }, [count, onChange]);
+
   return (
     <div className="form-control">
       <label className="label">
@@ -13,7 +19,7 @@ function Counter({}: Props) {
       <div className="input-group w-full">
         <button
           className="btn btn-primary"
-          onClick={() => changeCount((v) => v - 1)}
+          onClick={() => setCount((v) => v - 1)}
         >
           -
         </button>
@@ -25,7 +31,7 @@ function Counter({}: Props) {
         />
         <button
           className="btn btn-primary"
-          onClick={() => changeCount((v) => v + 1)}
+          onClick={() => setCount((v) => v + 1)}
         >
           +
         </button>

@@ -1,3 +1,5 @@
+import { useSettingContext } from 'contexts/SettingContext';
+
 import React from 'react';
 import ModeSelect from './ModeSelect';
 import Counter from './Counter';
@@ -8,6 +10,8 @@ type Props = {
 };
 
 function SettingModal({ isOpen, toggle }: Props) {
+  const [, { changeCount, changeMode }] = useSettingContext();
+
   return (
     <>
       <input
@@ -21,8 +25,8 @@ function SettingModal({ isOpen, toggle }: Props) {
         <label className="modal-box relative" htmlFor="">
           <h3 className="text-xl font-bold">Settings</h3>
           <div className="flex flex-col gap-2 mt-3">
-            <ModeSelect />
-            <Counter />
+            <ModeSelect onChange={changeMode} />
+            <Counter onChange={changeCount} />
           </div>
         </label>
       </label>

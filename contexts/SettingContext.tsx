@@ -20,8 +20,8 @@ export function SettingProvier({ children }: { children: JSX.Element }) {
       changeMode(mode: string) {
         setMode(mode);
       },
-      changeCount(changeFunc: (v: number) => number) {
-        setCount(changeFunc);
+      changeCount(v: number) {
+        setCount(v);
       },
     }),
     [],
