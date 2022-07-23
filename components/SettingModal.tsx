@@ -10,8 +10,9 @@ type Props = {
 };
 
 function SettingModal({ isOpen, toggle }: Props) {
-  const [, { changeCount, changeMode }] = useSettingContext();
+  const [{ mode }, { changeCount, changeMode }] = useSettingContext();
 
+  const hideCounter = mode === 'order';
   return (
     <>
       <input
@@ -26,7 +27,7 @@ function SettingModal({ isOpen, toggle }: Props) {
           <h3 className="text-xl font-bold">Settings</h3>
           <div className="flex flex-col gap-2 mt-3">
             <ModeSelect onChange={changeMode} />
-            <Counter onChange={changeCount} />
+            {!hideCounter && <Counter onChange={changeCount} />}
           </div>
         </label>
       </label>
