@@ -4,7 +4,7 @@ import { ITouch } from 'types';
 
 import _ from 'lodash';
 
-import { useSettingContext } from 'contexts/SettingContext';
+import { useSettingOptionContext } from 'contexts/SettingOptionContext';
 
 import useToggle from 'hooks/useToggle';
 import useTouches from 'hooks/useTouches';
@@ -52,7 +52,7 @@ const selectTouches = (touches: ITouch[], mode: string, count: number) => {
 };
 
 const Home: NextPage = () => {
-  const [{ mode, count }] = useSettingContext();
+  const [{ mode, count }] = useSettingOptionContext();
   const [selecting, setSelecting] = useState(false);
   const [selectedTouches, setSelectedTouches] = useState<ITouch[]>([]);
   const { ref, ongoingTouchMap } = useTouches();
@@ -73,11 +73,20 @@ const Home: NextPage = () => {
 
     return () => {
       setSelecting(false);
-      setSelectedTouches([]);
       clearTimeout(selectingTimerId);
       clearTimeout(sampleTimerId);
     };
   }, [ongoingTouches.length, count]);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setSelectedTouches([]);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [selectedTouches]);
 
   const targets =
     selectedTouches.length === 0 ? ongoingTouches : selectedTouches;
