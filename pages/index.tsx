@@ -9,11 +9,10 @@ import { useSettingContext } from 'contexts/SettingContext';
 import useToggle from 'hooks/useToggle';
 import useTouches from 'hooks/useTouches';
 
-import SettingButton from 'components/SettingButton';
+import Setting from 'components/Setting';
 import Cursor from 'components/Cursor';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
-import SettingModal from 'components/SettingModal';
 
 const colors = [
   'primary',
@@ -103,11 +102,11 @@ const Home: NextPage = () => {
           />
         ))}
       </div>
-      <SettingButton onClick={toggleSettingModalOpen} />
-      <SettingModal
-        isOpen={isSettingModalOpen}
-        toggle={toggleSettingModalOpen}
-      />
+
+      <Setting>
+        <Setting.Button />
+        <Setting.Modal />
+      </Setting>
     </div>
   );
 };

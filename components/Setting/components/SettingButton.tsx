@@ -1,14 +1,13 @@
 import React from 'react';
+import { useSettingModalOpenContext } from '../context';
 
-type Props = {
-  onClick: () => void;
-};
-
-function SettingButton({ onClick }: Props) {
+type Props = {};
+function SettingButton({}: Props) {
+  const { toggle } = useSettingModalOpenContext();
   return (
     <button
       className="btn btn-circle btn-ghost fixed top-4 right-4 text-primary"
-      onClick={onClick}
+      onClick={toggle}
     >
       <svg
         className="w-7 h-7"

@@ -1,15 +1,14 @@
 import { useSettingContext } from 'contexts/SettingContext';
 
 import React from 'react';
-import ModeSelect from './ModeSelect';
-import Counter from './Counter';
+import ModeSelect from 'components/ModeSelect';
+import Counter from 'components/Counter';
+import { useSettingModalOpenContext } from '../context';
 
-type Props = {
-  isOpen: boolean;
-  toggle: () => void;
-};
+type Props = {};
 
-function SettingModal({ isOpen, toggle }: Props) {
+function SettingModal({}: Props) {
+  const { isOpen, toggle } = useSettingModalOpenContext();
   const [{ mode }, { changeCount, changeMode }] = useSettingContext();
 
   const hideCounter = mode === 'order';
