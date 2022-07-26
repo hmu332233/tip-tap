@@ -14,12 +14,11 @@ function copyTouch(touch: any) {
 
 const useTouches = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
   const [ongoingTouchMap, setOngoingTouchMap] = useState<IOngoingTouchMap>({});
 
   useEffect(() => {
     const element = ref.current;
-    if (!active || !element) {
+    if (!element) {
       return;
     }
 
@@ -60,7 +59,7 @@ const useTouches = () => {
     };
   }, [ref, active]);
 
-  return { ref, ongoingTouchMap, setActive };
+  return { ref, ongoingTouchMap };
 };
 
 export default useTouches;

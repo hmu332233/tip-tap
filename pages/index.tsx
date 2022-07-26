@@ -55,14 +55,8 @@ const Home: NextPage = () => {
   const [{ mode, count }] = useSettingContext();
   const [selecting, setSelecting] = useState(false);
   const [selectedTouches, setSelectedTouches] = useState<ITouch[]>([]);
-  const { ref, ongoingTouchMap, setActive } = useTouches();
+  const { ref, ongoingTouchMap } = useTouches();
   const ongoingTouches = Object.values(ongoingTouchMap);
-
-  const [isSettingModalOpen, toggleSettingModalOpen] = useToggle(false);
-
-  useEffect(() => {
-    setActive(!isSettingModalOpen);
-  }, [isSettingModalOpen, setActive]);
 
   useEffect(() => {
     if (ongoingTouches.length === 0) {
