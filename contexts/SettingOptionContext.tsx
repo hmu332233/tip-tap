@@ -1,17 +1,21 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import { SettingContextValue } from 'types';
 
-export const SettingContext = createContext<SettingContextValue>([
+export const SettingOptionContext = createContext<SettingContextValue>([
   { mode: 'pick', count: 1 },
   { changeMode: () => {}, changeCount: () => {} },
 ]);
 
-export function useSettingContext() {
-  const value = useContext(SettingContext);
+export function useSettingOptionContext() {
+  const value = useContext(SettingOptionContext);
   return value;
 }
 
-export function SettingProvier({ children }: { children: React.ReactNode }) {
+export function SettingOptionProvier({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [mode, setMode] = useState('pick');
   const [count, setCount] = useState(1);
 
@@ -33,6 +37,8 @@ export function SettingProvier({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <SettingContext.Provider value={value}>{children}</SettingContext.Provider>
+    <SettingOptionContext.Provider value={value}>
+      {children}
+    </SettingOptionContext.Provider>
   );
 }

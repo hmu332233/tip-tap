@@ -57,7 +57,7 @@ const useTouches = () => {
       element.removeEventListener('touchend', handleEnd);
       element.removeEventListener('touchcancel', handleEnd);
     };
-  }, [ref, active]);
+  }, [ref]);
 
   return { ref, ongoingTouchMap };
 };
