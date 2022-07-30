@@ -2,7 +2,8 @@ export interface ITouch {
   identifier: number;
   pageX: number;
   pageY: number;
-  color: sring;
+  color?: sring;
+  order?: number;
 }
 
 export interface IOngoingTouchMap {

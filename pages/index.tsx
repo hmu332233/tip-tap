@@ -34,17 +34,21 @@ const selectTouches = (touches: ITouch[], mode: string, count: number) => {
   const randomOrderTouches = _.shuffle<ITouch>(touches)!;
 
   switch (mode) {
-    case 'group':
-      return _.chain(randomOrderTouches)
-        .map((touch, index) => ({
-          ...touch,
-          color: colors[index % count] || 'random',
-        }))
-        .value();
+    case 'group': {
+      return randomOrderTouches.map((touch, index) => ({
+        ...touch,
+        color: colors[index % count] || 'random',
+      }));
+    }
     case 'pick': {
       return randomOrderTouches.slice(0, count);
     }
-    case 'order':
+    case 'order': {
+      return randomOrderTouches.map((touch, index) => ({
+        ...touch,
+        order: index + 1,
+      }));
+    }
     default: {
       return randomOrderTouches;
     }
@@ -106,10 +110,10 @@ const Home: NextPage = () => {
             x={touch.pageX}
             y={touch.pageY}
             color={touch.color}
+            order={touch.order}
           />
         ))}
       </div>
-
       <Setting>
         <Setting.Button />
         <Setting.Modal />

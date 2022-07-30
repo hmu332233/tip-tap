@@ -5,26 +5,22 @@ import cn from 'classnames';
 type Props = {
   x: number;
   y: number;
-  color: string;
+  color?: string;
+  order?: number;
 };
 
-function Cursor({ x, y, color = 'random' }: Props) {
+function Cursor({ x, y, color = 'random', order }: Props) {
   return (
-    // <div
-    //   className="will-change-transform"
-    //   style={{ transform: `translate(${x - 64}px, ${y - 64}px)` }}
-    // >
     <div
       className="absolute -translate-x-1/2 -translate-y-1/2"
       style={{ left: x, top: y }}
     >
-      {/* <div
-        className={cn(
-          'rounded-full w-32 h-32 border-8 border-dashed animate-spin',
-          color && `border-${color}`,
-        )}
-      /> */}
       <div className={cn('cursor', `bg-${color}`)} />
+      {order && (
+        <div className="absolute top-0 left-0 flex justify-center items-center w-full h-full text-5xl text-primary-content font-extrabold">
+          {order}
+        </div>
+      )}
     </div>
   );
 }
