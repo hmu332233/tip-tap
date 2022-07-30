@@ -1,6 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
-import { useSettingContext } from 'contexts/SettingContext';
 
 type TabItem = {
   id: string;
