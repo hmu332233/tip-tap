@@ -59,7 +59,7 @@ const useTouches = () => {
     };
   }, [ref]);
 
-  return { ref, ongoingTouchMap };
+  return { ref, ongoingTouches: Object.values(ongoingTouchMap) };
 };
 
 export default useTouches;

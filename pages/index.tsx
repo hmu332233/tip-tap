@@ -54,9 +54,9 @@ const selectTouches = (touches: ITouch[], mode: string, count: number) => {
 const Home: NextPage = () => {
   const [{ mode, count }] = useSettingOptionContext();
   const [selecting, setSelecting] = useState(false);
+
+  const { ref, ongoingTouches } = useTouches();
   const [selectedTouches, setSelectedTouches] = useState<ITouch[]>([]);
-  const { ref, ongoingTouchMap } = useTouches();
-  const ongoingTouches = Object.values(ongoingTouchMap);
 
   useEffect(() => {
     if (ongoingTouches.length === 0) {
