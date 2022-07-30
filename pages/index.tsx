@@ -79,6 +79,10 @@ const Home: NextPage = () => {
   }, [ongoingTouches.length, count]);
 
   useEffect(() => {
+    if (selectedTouches.length === 0) {
+      return;
+    }
+
     const timerId = setTimeout(() => {
       setSelectedTouches([]);
     }, 5000);
