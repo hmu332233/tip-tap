@@ -76,6 +76,7 @@ const Home: NextPage = () => {
 
     const sampleTimerId = setTimeout(() => {
       setSelectedTouches(selectTouches(ongoingTouches, mode, count));
+      window.navigator.vibrate(500);
       // setSelectState('selected');
     }, 3000);
 
