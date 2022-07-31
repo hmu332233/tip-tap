@@ -13,6 +13,7 @@ import Setting from 'components/Setting';
 import Cursor from 'components/Cursor';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
+import Flash from 'components/Flash';
 
 const colors = [
   'primary',
@@ -56,6 +57,7 @@ const selectTouches = (touches: ITouch[], mode: string, count: number) => {
 };
 
 const Home: NextPage = () => {
+  // const [selectState, setSelectState] = useState('waiting');
   const [{ mode, count }] = useSettingOptionContext();
   const [selecting, setSelecting] = useState(false);
 
@@ -69,10 +71,12 @@ const Home: NextPage = () => {
 
     const selectingTimerId = setTimeout(() => {
       setSelecting(true);
+      // setSelectState('selecting');
     }, 500);
 
     const sampleTimerId = setTimeout(() => {
       setSelectedTouches(selectTouches(ongoingTouches, mode, count));
+      // setSelectState('selected');
     }, 3000);
 
     return () => {
@@ -89,6 +93,7 @@ const Home: NextPage = () => {
 
     const timerId = setTimeout(() => {
       setSelectedTouches([]);
+      // setSelectState('waiting');
     }, 5000);
 
     return () => {
@@ -96,11 +101,11 @@ const Home: NextPage = () => {
     };
   }, [selectedTouches]);
 
-  const targets =
-    selectedTouches.length === 0 ? ongoingTouches : selectedTouches;
+  const isSeletComplete = selectedTouches.length !== 0;
+  const targets = isSeletComplete ? selectedTouches : ongoingTouches;
 
   return (
-    <div className="flex">
+    <>
       <Background />
       <Progress on={selecting} />
       <div className="relative w-screen h-screen overflow-hidden" ref={ref}>
@@ -114,11 +119,12 @@ const Home: NextPage = () => {
           />
         ))}
       </div>
+      {isSeletComplete && <Flash />}
       <Setting>
         <Setting.Button />
         <Setting.Modal />
       </Setting>
-    </div>
+    </>
   );
 };
 

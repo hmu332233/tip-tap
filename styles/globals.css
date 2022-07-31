@@ -30,27 +30,6 @@ body,
   }
 }
 
-.wave {
-  opacity: 0.4;
-  position: absolute;
-  background: #0af;
-  width: 100vw;
-  height: 100vw;
-  margin-top: calc(100vw * -0.5);
-  border-radius: 43%;
-  animation: drift 3000ms infinite linear;
-}
-
-.wave.two {
-  animation: drift 7000ms infinite linear;
-  opacity: 0.1;
-  background: yellow;
-}
-
-.wave.three {
-  animation: drift 5000ms infinite linear;
-}
-
 @keyframes drift {
   from {
     transform: rotate(0deg);
@@ -62,13 +41,26 @@ body,
   }
 }
 
+.flash-on {
+  animation: flash 1s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flash {
+  0%,
+  50% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .cursor {
   position: relative;
   width: 128px;
   height: 128px;
   border-radius: 50%;
-
-  transition: background-color 1s linear;
 }
 
 .cursor:before {
