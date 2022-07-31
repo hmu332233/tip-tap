@@ -17,7 +17,7 @@ function Cursor({ x, y, color = 'random', order }: Props) {
     >
       <div className={cn('cursor', `bg-${color}`)} />
       {order && (
-        <div className="absolute -top-5 -right-5 animate-bounce text-5xl text-primary-content font-extrabold">
+        <div className="absolute -top-5 -right-5 animate-bounce text-5xl text-primary-content font-extrabold z-10">
           {order}
         </div>
       )}
