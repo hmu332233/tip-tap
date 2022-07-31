@@ -2,18 +2,17 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { ITouch } from 'types';
 
+import cn from 'classnames';
 import _ from 'lodash';
 
 import { useSettingOptionContext } from 'contexts/SettingOptionContext';
 
-import useToggle from 'hooks/useToggle';
 import useTouches from 'hooks/useTouches';
 
 import Setting from 'components/Setting';
 import Cursor from 'components/Cursor';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
-import Flash from 'components/Flash';
 
 const colors = [
   'primary',
@@ -76,7 +75,7 @@ const Home: NextPage = () => {
 
     const sampleTimerId = setTimeout(() => {
       setSelectedTouches(selectTouches(ongoingTouches, mode, count));
-      window.navigator.vibrate(500);
+      window.navigator.vibrate(100);
       // setSelectState('selected');
     }, 3000);
 
@@ -108,8 +107,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Background />
-      <Progress on={selecting} />
-      <div className="relative w-screen h-screen overflow-hidden" ref={ref}>
+      <div
+        className={cn(
+          'relative w-screen h-screen overflow-hidden',
+          isSeletComplete && 'flash-on',
+        )}
+        ref={ref}
+      >
         {targets.map((touch) => (
           <Cursor
             key={touch.identifier}
@@ -120,7 +124,7 @@ const Home: NextPage = () => {
           />
         ))}
       </div>
-      {isSeletComplete && <Flash />}
+      <Progress on={selecting} />
       <Setting>
         <Setting.Button />
         <Setting.Modal />

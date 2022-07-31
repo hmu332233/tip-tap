@@ -43,16 +43,15 @@ body,
 
 .flash-on {
   animation: flash 1s linear;
-  animation-fill-mode: forwards;
 }
 
 @keyframes flash {
   0%,
   50% {
-    opacity: 100;
+    opacity: 0;
   }
   100% {
-    opacity: 0;
+    opacity: 100;
   }
 }
 
