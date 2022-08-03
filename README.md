@@ -7,15 +7,16 @@ Tip-Tap은 손가락만 있으면 할 수 있으면 할 수 있는 간단한 게
 
 - **Pick**
 
-<!-- GIF 필요 -->
+<img src="https://user-images.githubusercontent.com/10302969/182659538-36d090f0-2736-4454-84ee-feeb1dbcdb04.gif" alt="Pick" width="300" />
 
 - **Group**
 
-<!-- GIF 필요 -->
+<img src="https://user-images.githubusercontent.com/10302969/182659513-c5bdf6f9-410e-4961-adf6-adb92d4610da.gif" alt="Group" width="300" />
+![Group]()
 
 - **Order**
 
-<!-- GIF 필요 -->
+<img src="https://user-images.githubusercontent.com/10302969/182659531-08ee99c2-8a00-473d-b7aa-fabee13021e8.gif" alt="Order" width="300" />
 
 ## Contributing
 
