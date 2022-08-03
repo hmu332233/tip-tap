@@ -12,7 +12,6 @@ Tip-Tap은 손가락만 있으면 할 수 있으면 할 수 있는 간단한 게
 - **Group**
 
 <img src="https://user-images.githubusercontent.com/10302969/182659513-c5bdf6f9-410e-4961-adf6-adb92d4610da.gif" alt="Group" width="300" />
-![Group]()
 
 - **Order**
 
