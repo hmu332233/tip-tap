@@ -41,7 +41,10 @@ const selectTouches = (touches: ITouch[], mode: string, count: number) => {
       }));
     }
     case 'pick': {
-      return randomOrderTouches.slice(0, count);
+      return randomOrderTouches.map((touch, index) => ({
+        ...touch,
+        color: colors[index],
+      }));
     }
     case 'order': {
       return randomOrderTouches.map((touch, index) => ({
