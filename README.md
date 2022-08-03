@@ -5,15 +5,28 @@
 Tip-Tap은 손가락만 있으면 할 수 있으면 할 수 있는 간단한 게임의 모음입니다.  
 친구들과 간단한 내기, 팀 나누기, 보드게임 순서 정하기등 다양한 상황에서 활용해보세요!
 
-- **Pick**
+## How to use?
+
+모드를 선택하고, 스크린을 탭하세요!  
+잠시후 결과가 화면에 나타납니다.
+
+Pick, Group, Order 모드가 준비되어있습니다.
+
+### Pick
+
+탭한 커서들을 설정의 카운트만큼 선택해주는 모드
 
 <img src="https://user-images.githubusercontent.com/10302969/182659538-36d090f0-2736-4454-84ee-feeb1dbcdb04.gif" alt="Pick" width="300" />
 
-- **Group**
+### Group
+
+탭한 커서들을 설정의 카운트만큼 그룹을 만들어주는 모드
 
 <img src="https://user-images.githubusercontent.com/10302969/182659513-c5bdf6f9-410e-4961-adf6-adb92d4610da.gif" alt="Group" width="300" />
 
-- **Order**
+### Order
+
+탭한 커서들의 순서를 지정해주는 모드
 
 <img src="https://user-images.githubusercontent.com/10302969/182659531-08ee99c2-8a00-473d-b7aa-fabee13021e8.gif" alt="Order" width="300" />
 
