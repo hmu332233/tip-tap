@@ -13,6 +13,7 @@ import Setting from 'components/Setting';
 import Cursor from 'components/Cursor';
 import Progress from 'components/Progress';
 import Background from 'components/Background';
+import GithubIcon from 'components/GithubIcon';
 
 const colors = [
   'primary',
@@ -132,6 +133,7 @@ const Home: NextPage = () => {
         <Setting.Button />
         <Setting.Modal />
       </Setting>
+      <GithubIcon />
     </>
   );
 };
