@@ -12,7 +12,7 @@
 
 ## What's Tip-Tap?
 
-**Tip-Tap** is a collection of simple games that can play with your fingers.  
+**Tip-Tap** is a collection of simple games that can play with fingers.  
 Use it in a variety of situations, including simple bets with friends, teaming, and ordering!
 
 ## How to use?
