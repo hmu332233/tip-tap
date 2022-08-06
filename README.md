@@ -1,32 +1,42 @@
-# Tip-Tap
+<div align="center">
+  <a href="https://tip-tap.minung.dev">
+    <img src="https://user-images.githubusercontent.com/10302969/183258296-058fb756-a0f7-42b2-9bb6-08cc3a7a01d4.png" height="45" alt="logo" />
+  </a>
+  <br />
+  <p align="center">
+    Select a mode, tap on the screen!
+    <br />
+    <a href="https://tip-tap.minung.dev"><strong>Site »</strong></a>
+  </p>
+</div>
 
 ## What's Tip-Tap?
 
-Tip-Tap은 손가락만 있으면 할 수 있으면 할 수 있는 간단한 게임의 모음입니다.  
-친구들과 간단한 내기, 팀 나누기, 보드게임 순서 정하기등 다양한 상황에서 활용해보세요!
+**Tip-Tap** is a collection of simple games that can play with your fingers.  
+Use it in a variety of situations, including simple bets with friends, teaming, and ordering!
 
 ## How to use?
 
-모드를 선택하고, 스크린을 탭하세요!  
-잠시후 결과가 화면에 나타납니다.
+Select a mode, tap on the screen!  
+After a while, the results appear on the screen.
 
-Pick, Group, Order 모드가 준비되어있습니다.
+Various modes support.
 
 ### Pick
 
-탭한 커서들을 설정의 카운트만큼 선택해주는 모드
+A mode that selects the tapped fingers by the count of settings
 
 <img src="https://user-images.githubusercontent.com/10302969/182659538-36d090f0-2736-4454-84ee-feeb1dbcdb04.gif" alt="Pick" width="300" />
 
 ### Group
 
-탭한 커서들을 설정의 카운트만큼 그룹을 만들어주는 모드
+A mode that creates groups of tapped fingers by the count of settings
 
 <img src="https://user-images.githubusercontent.com/10302969/182659513-c5bdf6f9-410e-4961-adf6-adb92d4610da.gif" alt="Group" width="300" />
 
 ### Order
 
-탭한 커서들의 순서를 지정해주는 모드
+A mode that specify the order of the tapped fingers
 
 <img src="https://user-images.githubusercontent.com/10302969/182659531-08ee99c2-8a00-473d-b7aa-fabee13021e8.gif" alt="Order" width="300" />
 
