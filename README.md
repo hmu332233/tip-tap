@@ -12,7 +12,7 @@
 
 ## What's Tip-Tap?
 
-**Tip-Tap** is a collection of simple games that can play with fingers for Drawing Lots..  
+**Tip-Tap** is a collection of simple games that can play with fingers for Drawing Lots.  
 Use it in a variety of situations, including simple bets with friends, teaming, and ordering!
 
 ## How to use?
