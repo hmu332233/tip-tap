@@ -10,6 +10,11 @@
   </p>
 </div>
 
+<br/>
+<div align="center">
+<a href="https://www.producthunt.com/posts/tip-tap-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tip&#0045;tap&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=355143&theme=light" alt="Tip&#0032;Tap - Select&#0032;a&#0032;mode&#0044;&#0032;tap&#0032;on&#0032;the&#0032;screen&#0033;&#0032;For&#0032;Drawing&#0032;Lots&#0046; | Product Hunt" style="width: 200px; height: 43px;" width="200" height="43" /></a>
+</div>
+
 ## What's Tip-Tap?
 
 **Tip-Tap** is a collection of simple games that can play with fingers for Drawing Lots.  
