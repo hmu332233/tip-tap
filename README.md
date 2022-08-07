@@ -4,7 +4,7 @@
   </a>
   <br />
   <p align="center">
-    Select a mode, tap on the screen!
+    Select a mode, tap on the screen! For Drawing Lots.
     <br />
     <a href="https://tip-tap.minung.dev"><strong>Site »</strong></a>
   </p>
