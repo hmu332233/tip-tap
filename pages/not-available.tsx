@@ -13,7 +13,7 @@ const NotAvailable: NextPage = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center max-w-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="inline w-24 h-24 mb-2 text-warning"
