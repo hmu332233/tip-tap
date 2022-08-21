@@ -13,14 +13,14 @@ function SEO({}: Props) {
       <title>Tip Tap</title>
       <meta
         name="description"
-        content="Select a mode, tap on the screen! Tip-Tap is a collection of simple games that can play with your fingers. Use it in a variety of situations, including simple bets with friends, teaming, and ordering!"
+        content="Select a mode, tap on the screen! Tip-Tap is a collection of simple games that an play with fingers for Drawing Lots."
       />
       <meta name="keywords" content="tip,tap,game,random,picker" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Tip Tap" />
       <meta
         property="og:description"
-        content="Select a mode, tap on the screen! Tip-Tap is a collection of simple games that can play with your fingers. Use it in a variety of situations, including simple bets with friends, teaming, and ordering!"
+        content="Select a mode, tap on the screen! Tip-Tap is a collection of simple games that an play with fingers for Drawing Lots."
       />
       <meta property="og:url" content="https://tip-tap.minung.dev" />
       {/* <meta property="og:image" content=""/> */}
